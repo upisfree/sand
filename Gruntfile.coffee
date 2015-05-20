@@ -20,7 +20,8 @@ module.exports = (grunt) ->
           join: true
         files:
           'build/<%= pkg.name %>.js': [
-            'src/**/*'
+            'src/globals.coffee'
+            'src/**/*.coffee'
             'src/start.coffee'
           ]
 
@@ -49,5 +50,6 @@ module.exports = (grunt) ->
           reload: true
 
   grunt.registerTask 'dev', ['coffee:dev', 'connect:watch', 'watch']
+  grunt.registerTask 'release', ['coffee:release', 'uglify:release']
 
   grunt.initConfig config
