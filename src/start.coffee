@@ -1,6 +1,21 @@
 # Start
 Matter.Engine.run Engine
 
+# example walls
+for i in [0...500]
+  if Math.random() > 0.5
+    w = Math.randomInt 25, 75
+    h = Math.randomInt 150, 250
+  else
+    w = Math.randomInt 150, 250
+    h = Math.randomInt 25, 75
+  
+  addToWorld Matter.Bodies.rectangle Math.randomInt(-window.w * 2, window.w * 2)
+                                   , Math.randomInt(-window.h * 2, window.h * 2)
+                                   , w
+                                   , h
+                                   , { isStatic: true }
+
 # example stack
 stack = Matter.Composites.stack 0, 0, 15, 4, 0, 0, (x, y, column, row) ->
   switch Math.round Math.random()
