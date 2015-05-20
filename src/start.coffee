@@ -1,6 +1,9 @@
 # Start
 Matter.Engine.run Engine
 
+# example filters
+Engine.render.container.filters = [new PIXI.filters.PixelateFilter()]
+
 # example walls
 for i in [0...500]
   if Math.random() > 0.5

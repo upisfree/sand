@@ -17,3 +17,4 @@ Engine = Matter.Engine.create document.body,
       width: window.w
       height: window.h
       wireframes: false
+      background: '#ccc'
