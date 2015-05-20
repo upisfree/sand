@@ -1,0 +1,27 @@
+{
+  "name": "voice",
+  "version": "0.1.0",
+  "devDependencies": {
+    "bower-update": "0.0.4",
+    "grunt": "^0.4.5",
+    "grunt-bower-concat": "^0.4.0",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-contrib-connect": "^0.10.1",
+    "grunt-contrib-uglify": "^0.5.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "load-grunt-tasks": "^2.0.0",
+    "time-grunt": "^1.0.0"
+  },
+  "dependencies": {},
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/upisfree/voice.git"
+  },
+  "author": "upisfree",
+  "bugs": {
+    "url": "https://github.com/upisfree/voice/issues"
+  },
+  "homepage": "https://github.com/upisfree/voice"
+}
