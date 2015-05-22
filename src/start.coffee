@@ -2,14 +2,19 @@
 Matter.Engine.run Engine
 _time = 0
 
-Debug.stack()
-
 # Player
 player = new Player window.w / 2, window.h / 2
+
+# Debug
+Debug.stack()
+
+# Voice
+Voice.start()
 
 # Filters
 #Filters.enable()
 
+# Render
 Engine.render.options.hasBounds = true
 Matter.Events.on Engine, 'tick', (e) ->
   _time += 0.01
