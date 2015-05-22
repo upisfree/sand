@@ -8,7 +8,7 @@ Filters =
                             0,0,1,0,
                             0,0,0,1]
 
-    Engine.render.container.filters = [Filters.color]
+    Engine.render.container.filters = [Filters.pixelate]
   disable: -> # off?
     Engine.render.container.filters = []
   update: (time) ->
