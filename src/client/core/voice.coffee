@@ -35,14 +35,12 @@ Voice =
     average += parseFloat i for i in array
     average = average / array.length
 
-
     # Debug
     Engine.render.gl.clear()
     Engine.render.gl.lineStyle 1, 0x000000, 1
 
     for i in [0..average]
       Engine.render.gl.drawCircle player.body.position.x, player.body.position.y, i * 10 # camera!
-      #Engine.render.gl.drawCircle window.w / 2, window.h / 2, i * 10
 
   error: (e) ->
     console.log e

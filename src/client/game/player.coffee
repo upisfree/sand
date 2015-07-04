@@ -9,7 +9,7 @@ class Player
     addToWorld @body
   enableControl: (body) ->
     window.onmousemove = (e) ->
-      body.angle = Math.angleFromVector e.x, e.y
+      body.angle = Vector.toAngle e.x, e.y
 
     window.onkeydown = (e) ->
       mult = 1.5
