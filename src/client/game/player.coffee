@@ -1,21 +1,27 @@
-class Player
-  constructor: (x, y) ->
-    @body = Matter.Bodies.rectangle x, y, 100, 100,
-      mass: 100
-      frictionAir: 0.25
-  
-    @enableControl @body
+class Player extends Character
+  constructor: ->
+    super()
 
-    addToWorld @body
-  enableControl: (body) ->
+    p = @
+
     window.onmousemove = (e) ->
-      body.angle = Vector.toAngle e.x, e.y
+      a = Vector.toAngle e.x, e.y
+
+      p.rotate a
+
+      Net.io.emit 'character-turned',
+        angle: a
 
     window.onkeydown = (e) ->
-      mult = 1.5
+      d = ''
 
       switch e.keyCode
         when 87, 38 # up
-          Matter.Body.applyForce body, { x: 0, y: 0 }, Matter.Vector.mult(Vector.fromAngle(body.angle), mult)
+          d = 'up'
         when 83, 40 # down
-          Matter.Body.applyForce body, { x: 0, y: 0 }, Matter.Vector.neg(Matter.Vector.mult(Vector.fromAngle(body.angle), mult))
+          d = 'down'
+
+      p.move d
+
+      Net.io.emit 'character-moved',
+        direction: d

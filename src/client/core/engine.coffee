@@ -5,7 +5,6 @@ Engine = Matter.Engine.create document.body,
       y: 0
   enableSleeping: true
   render:
-    element: document.body # временно
     controller: Matter.RenderPixi
     options:
       width: window.w

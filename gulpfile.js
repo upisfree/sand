@@ -29,7 +29,9 @@ gulp.task('client', function()
 
 gulp.task('server', function()
 {
-  return gulp.src(path.src.server + '**/*.coffee')
+  return gulp.src([path.src.server + 'globals.coffee',
+                   path.src.server + '*/*.coffee',
+                   path.src.server + 'start.coffee'])
              .pipe(coffee({ bare: true }).on('error', gutil.log))
              .pipe(concat('server.js'))
              .pipe(gulp.dest(path.build));
@@ -37,6 +39,8 @@ gulp.task('server', function()
 
 gulp.task('default', function()
 {
+  gulp.run('client', 'server');
+
   livereload.listen();
 
   gulp.watch(path.src.client + '**/*.coffee', function()
