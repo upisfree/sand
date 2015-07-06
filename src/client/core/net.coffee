@@ -25,13 +25,16 @@ Net =
       removeFromWorld characters[data.id].body
       delete characters[data.id]
 
-    # Net.io.on 'characters-sync', (data) ->
-    #   if data.id isnt Net.id
-    #     # another way, like Matter.Common.extend
-    #     characters[data.id].body.angle = data.angle
-    #     characters[data.id].body.motion = data.motion
-    #     characters[data.id].body.position.x = data.x
-    #     characters[data.id].body.position.y = data.y
+    Net.io.on 'characters-sync', (data) ->
+      if data.id isnt Net.id
+        # another way, like Matter.Common.extend
+        characters[data.id].body.angle = data.angle
+        characters[data.id].body.position.x = data.x
+        characters[data.id].body.position.y = data.y
+      else
+        player.body.angle = data.angle
+        player.body.position.x = data.x
+        player.body.position.y = data.y
 
   io: null
   id: null
@@ -39,3 +42,5 @@ Net =
   protocol: 'http://'
   address: 'localhost'
   port: 10101
+
+  ping: 0

@@ -17,16 +17,8 @@ io.on 'connection', (socket) ->
   socket.on 'character-turned', (data) ->
     c.rotate data.angle
 
-    io.emit 'character-turned',
-      angle: data.angle
-      id: socket.id
-
   socket.on 'character-moved', (data) ->
     c.move data.direction
-
-    io.emit 'character-moved',
-      direction: data.direction
-      id: socket.id
 
   socket.on 'disconnect', ->
     removeFromWorld c.body
@@ -35,14 +27,13 @@ io.on 'connection', (socket) ->
     io.emit 'character-disconnected',
       id: socket.id
 
-  # setInterval ->
-  #   for own k, v of characters
-  #     io.emit 'characters-sync',
-  #       id: v.id
-  #       angle: v.body.angle
-  #       motion: v.body.motion
-  #       x: v.body.position.x
-  #       y: v.body.position.y
-  # , 5000
+  setInterval ->
+    for own k, v of characters
+      socket.emit 'characters-sync',
+        id: v.id
+        angle: v.body.angle
+        x: v.body.position.x
+        y: v.body.position.y
+  , 16
 
 Matter.Engine.run Engine

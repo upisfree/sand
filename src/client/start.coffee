@@ -5,11 +5,10 @@ Matter.Engine.run Engine
 player = new Player window.w / 2, window.h / 2
 
 # Debug
-#Debug.walls()
-#Debug.stack()
+Debug.start()
 
 # Net
-Net.start()
+#Net.start()
 
 # Voice
 #Voice.start()
@@ -36,3 +35,6 @@ Matter.Events.on Engine, 'tick', (e) ->
 
   # Filters
   Filters.update time
+
+  # Debug
+  Debug.update()
