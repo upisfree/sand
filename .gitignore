@@ -1,4 +1,4 @@
-build/*
+build/*.dev.js
 
 node_modules
 bower_components
