@@ -43,7 +43,7 @@ Net =
   id: null
 
   protocol: 'http://'
-  address: 'sand-upisfree.rhcloud.com'
+  address: prompt 'Server address?', 'localhost'
   port: 10101
 
   ping: 0
