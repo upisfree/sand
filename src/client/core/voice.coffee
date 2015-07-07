@@ -31,21 +31,19 @@ Voice =
     array = new Uint8Array Voice.analyser.frequencyBinCount
     Voice.analyser.getByteFrequencyData array
 
-    average = 0
-    average += parseFloat i for i in array
-    average = average / array.length
+    Voice.average = 0
+    Voice.average += parseFloat i for i in array
+    Voice.average = Voice.average / array.length
 
     # Debug
     Engine.render.gl.clear()
     Engine.render.gl.lineStyle 1, 0x000000, 1
 
-    for i in [0..average]
+    for i in [0..Voice.average]
       Engine.render.gl.drawCircle player.body.position.x, player.body.position.y, i * 10 # camera!
 
   error: (e) ->
     console.log e
-
-  analyser: null
 
   _setPrefixes: ->
     navigator.getUserMedia = navigator.getUserMedia ||
@@ -54,3 +52,6 @@ Voice =
                              navigator.msGetUserMedia
   _supportGetUserMedia: ->
     return !!navigator.getUserMedia
+
+  analyser: null
+  average: 0

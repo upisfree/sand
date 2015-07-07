@@ -71,10 +71,12 @@ Matter.RenderPixi.clear = (render) ->
   spriteContainer = render.spriteContainer
 
   # clear stage container
-  container.removeChild container.children[0]
+  for i in container.children
+    container.removeChild i
 
   # clear sprite batch
-  spriteContainer.removeChild spriteContainer.children[0]
+  for i in spriteContainer.children
+    spriteContainer.removeChild i
 
   bgSprite = render.sprites['bg-0']
 

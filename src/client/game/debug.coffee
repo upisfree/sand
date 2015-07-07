@@ -11,6 +11,7 @@ Debug =
                        x: #{player.body.position.x.toFixed()}
                        y: #{player.body.position.y.toFixed()}
                        ping: #{Net.ping}
+                       voice: #{Voice.average.toFixed()}
                        """
 
     Debug._text.position.x = player.body.position.x - window.w / 2 + 12

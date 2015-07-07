@@ -2,17 +2,15 @@ class Player extends Character
   constructor: ->
     super()
 
-    p = @
-
-    window.onmousemove = (e) ->
+    window.onmousemove = (e) =>
       a = Vector.toAngle e.x, e.y
 
-      p.rotate a
+      @rotate a
 
       Net.io.emit 'character-turned',
-        angle: a
+        a: a
 
-    window.onkeydown = (e) ->
+    window.onkeydown = (e) =>
       d = ''
 
       switch e.keyCode
@@ -21,7 +19,7 @@ class Player extends Character
         when 83, 40 # down
           d = 'down'
 
-      p.move d
+      @move d
 
       Net.io.emit 'character-moved',
-        direction: d
+        d: d

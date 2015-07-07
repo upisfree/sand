@@ -1,8 +1,7 @@
 class Character
-  constructor: (@id, angle = 0, motion = 0, x = 0, y = 0) -> # options object?
+  constructor: (@id, angle = 0, x = 0, y = 0) ->
     @body = Matter.Bodies.rectangle x, y, 100, 100,
       angle: angle
-      motion: motion
       mass: 100
       frictionAir: 0.25
   

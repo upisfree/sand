@@ -8,19 +8,19 @@ player = new Player window.w / 2, window.h / 2
 Debug.start()
 
 # Net
-#Net.start()
+Net.start()
 
 # Voice
-#Voice.start()
+Voice.start()
 
 # Filters
 #Filters.enable()
 
 # debug
-#Engine.render.gl = new PIXI.Graphics()
-#setTimeout ->
-#  Engine.render.container.addChild Engine.render.gl
-#, 5000
+Engine.render.gl = new PIXI.Graphics()
+setTimeout ->
+  Engine.render.container.addChild Engine.render.gl
+, 5000
 
 # Render
 Engine.render.options.hasBounds = true
@@ -28,7 +28,7 @@ Matter.Events.on Engine, 'tick', (e) ->
   time += 0.01
 
   # Voice
-  #Voice.update()
+  Voice.update()
 
   # Camera
   Matter.Bounds.shift Engine.render.bounds, { x: player.body.position.x - window.w / 2, y: player.body.position.y - window.h / 2 }
