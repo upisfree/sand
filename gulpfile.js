@@ -42,6 +42,7 @@ gulp.task('server', function()
 gulp.task('build-client', function()
 {
   return gulp.src([path.src.client + 'globals.coffee',
+                   path.src.client + 'core/render.coffee',
                    path.src.client + '*/*.coffee',
                    path.src.client + 'start.coffee'])
              .pipe(coffee({ bare: true }).on('error', gutil.log))
