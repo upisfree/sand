@@ -1,17 +1,24 @@
-Filters =
-  enable: -> # on?
-    Filters.pixelate = new PIXI.filters.PixelateFilter()
+# game/filters.coffee
+# Define game.filters object
+engine = require '../core/engine.coffee'
 
-    Filters.color = new PIXI.filters.ColorMatrixFilter()
-    Filters.color.matrix = [1,0,0,0,
+filters =
+  enable: -> # on?
+    filters.pixelate = new PIXI.filters.PixelateFilter()
+
+    filters.color = new PIXI.filters.ColorMatrixFilter()
+    filters.color.matrix = [1,0,0,0,
                             0,1,0,0,
                             0,0,1,0,
                             0,0,0,1]
 
-    Engine.render.container.filters = [Filters.pixelate]
+    engine.render.container.filters = [filters.pixelate]
   disable: -> # off?
-    Engine.render.container.filters = []
+    engine.render.container.filters = []
   update: (time) ->
-    if Engine.render.container.filters
-      Filters.color.matrix[2] = Math.sin time * 2
-      Filters.color.matrix[6] = Math.cos time * 2
+    if engine.render.container.filters
+      filters.color.matrix[2] = Math.sin time * 2
+      filters.color.matrix[6] = Math.cos time * 2
+
+# export
+module.exports = filters

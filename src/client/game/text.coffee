@@ -1,3 +1,7 @@
+# game/text.coffee
+# Define game.Text object
+engine = require '../core/engine.coffee'
+
 class Text
   constructor: (text, size, color, x, y, isBold = false, isItalic = false, font = 'Arial') ->
     style = ''
@@ -18,6 +22,9 @@ class Text
     t.position.x = x
     t.position.y = y
 
-    Engine.render.textContainer.addChild t
+    engine.render.textContainer.addChild t
 
     return t
+
+# export
+module.exports = Text

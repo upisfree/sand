@@ -1,10 +1,8 @@
-// TODO: CoffeeScript
-//       client and server in one task
 var gulp = require('gulp'),
     gutil = require('gulp-util'),
     coffee = require('gulp-coffee'),
     concat = require('gulp-concat'),
-    uglify = require('gulp-uglify'),
+    uglify = require('gulp-uglify'),zzzz
     livereload = require('gulp-livereload');
 
 var path =
@@ -21,7 +19,7 @@ gulp.task('client', function()
 {
   return gulp.src([path.src.client + 'globals.coffee',
                    path.src.client + 'core/render.coffee',
-                   path.src.client + '*/*.coffee',
+                   path.src.client + '*/**/*.coffee',
                    path.src.client + 'start.coffee'])
              .pipe(coffee({ bare: true }).on('error', gutil.log))
              .pipe(concat('client.dev.js'))
@@ -32,7 +30,7 @@ gulp.task('client', function()
 gulp.task('server', function()
 {
   return gulp.src([path.src.server + 'globals.coffee',
-                   path.src.server + '*/*.coffee',
+                   path.src.server + '*/**/*.coffee',
                    path.src.server + 'start.coffee'])
              .pipe(coffee({ bare: true }).on('error', gutil.log))
              .pipe(concat('server.dev.js'))

@@ -1,40 +1,57 @@
-# Start
-Matter.Engine.run Engine
+# start.coffee
+# Start game
+
+# define global width and height aliases
+window.w = window.innerWidth
+window.h = window.innerHeight
+
+# require
+core = require './core/core.coffee'
+game = require './game/game.coffee'
+engine = core.engine
+Player = game.Player
+debug = game.debug
+net = core.net
+voice = core.voice
+filters = game.filters
+
+# start
+Matter.Engine.run engine
 
 # Player
 player = new Player window.w / 2, window.h / 2
 
 # Debug
-Debug.start()
+debug.start()
 
 # Net
-Net.start()
+net.start()
 
 # Voice
-Voice.start()
+#voice.start()
 
 # Filters
-#Filters.enable()
+#filters.enable()
 
 # debug
-Engine.render.gl = new PIXI.Graphics()
+engine.render.gl = new PIXI.Graphics()
 setTimeout ->
-  Engine.render.container.addChild Engine.render.gl
+  engine.render.container.addChild engine.render.gl
 , 5000
 
 # Render
-Engine.render.options.hasBounds = true
-Matter.Events.on Engine, 'tick', (e) ->
-  time += 0.01
+engine.render.options.hasBounds = true
+Matter.Events.on engine, 'tick', (e) ->
+  game.time += 0.01
 
   # Voice
-  Voice.update()
+  #voice.update()
 
   # Camera
-  Matter.Bounds.shift Engine.render.bounds, { x: player.body.position.x - window.w / 2, y: player.body.position.y - window.h / 2 }
+  Matter.Bounds.shift engine.render.bounds, { x: player.body.position.x - window.w / 2, y: player.body.position.y - window.h / 2 }
 
   # Filters
-  Filters.update time
+  filters.update game.time
 
   # Debug
-  Debug.update()
+  debug.update engine.timing.fps, net.ping.value, voice.average, player.body.position.x, player.body.position.y

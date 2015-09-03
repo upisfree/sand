@@ -1,6 +1,17 @@
-Matter.RenderPixi.create = (options) ->
+# matter/render.coffee
+# Add text render to default Matter's renderer
+# Code by @liabru, all glory is his.
+
+# aliases
+RenderPixi = Matter.RenderPixi
+Common = Matter.Common
+Composite = Matter.Composite
+Vector = Matter.Vector
+Bounds = Matter.Bounds
+
+RenderPixi.create = (options) ->
   defaults =
-    controller: Matter.RenderPixi
+    controller: RenderPixi
     element: null
     canvas: null
     options:
@@ -23,8 +34,8 @@ Matter.RenderPixi.create = (options) ->
       showIds: false
       showShadows: false
 
-  render = Matter.Common.extend defaults, options
-  transparent = !render.options.wireframes && render.options.background == 'transparent'
+  render = Common.extend defaults, options
+  transparent = not render.options.wireframes and render.options.background is 'transparent'
 
   # init pixi
   render.context = new PIXI.WebGLRenderer render.options.width, render.options.height,
@@ -35,7 +46,7 @@ Matter.RenderPixi.create = (options) ->
 
   render.canvas = render.context.view
   render.container = new PIXI.Container()
-  render.bounds = render.bounds ||
+  render.bounds = render.bounds or
     min:
       x: 0
       y: 0
@@ -55,10 +66,10 @@ Matter.RenderPixi.create = (options) ->
   render.container.addChild render.textContainer
 
   # insert canvas
-  if Matter.Common.isElement render.element
+  if Common.isElement render.element
     render.element.appendChild render.canvas
   else
-    Matter.Common.log 'No "render.element" passed, "render.canvas" was not inserted into document.', 'warn'
+    Common.log 'No "render.element" passed, "render.canvas" was not inserted into document.', 'warn'
 
   # prevent menus on canvas
   render.canvas.oncontextmenu = -> return false
@@ -66,7 +77,7 @@ Matter.RenderPixi.create = (options) ->
 
   return render
 
-Matter.RenderPixi.clear = (render) ->
+RenderPixi.clear = (render) ->
   container = render.container
   spriteContainer = render.spriteContainer
 
@@ -101,20 +112,20 @@ Matter.RenderPixi.clear = (render) ->
   container.scale.set 1, 1
   container.position.set 0, 0
 
-Matter.RenderPixi.world = (engine) ->
+RenderPixi.world = (engine) ->
   render = engine.render
   world = engine.world
   context = render.context
   container = render.container
   options = render.options
-  bodies = Matter.Composite.allBodies world
-  allConstraints = Matter.Composite.allConstraints world
+  bodies = Composite.allBodies world
+  allConstraints = Composite.allConstraints world
   constraints = []
 
   if options.wireframes
-    Matter.RenderPixi.setBackground render, options.wireframeBackground
+    RenderPixi.setBackground render, options.wireframeBackground
   else
-    Matter.RenderPixi.setBackground render, options.background
+    RenderPixi.setBackground render, options.background
 
   # handle bounds
   boundsWidth = render.bounds.max.x - render.bounds.min.x
@@ -125,7 +136,7 @@ Matter.RenderPixi.world = (engine) ->
   if options.hasBounds
     # Hide bodies that are not in view
     for body in bodies
-      body.render.sprite.visible = Matter.Bounds.overlaps body.bounds, render.bounds
+      body.render.sprite.visible = Bounds.overlaps body.bounds, render.bounds
 
     # filter out constraints that are not in view
     for constraint in allConstraints
@@ -135,15 +146,15 @@ Matter.RenderPixi.world = (engine) ->
       pointBWorld = constraint.pointB
 
       if bodyA
-        pointAWorld = Matter.Vector.add bodyA.position, constraint.pointA
+        pointAWorld = Vector.add bodyA.position, constraint.pointA
       
       if bodyB
-        pointBWorld = Matter.Vector.add bodyB.position, constraint.pointB
+        pointBWorld = Vector.add bodyB.position, constraint.pointB
 
-      if !pointAWorld || !pointBWorld
+      if not pointAWorld or not pointBWorld
         continue
 
-      if Matter.Bounds.contains(render.bounds, pointAWorld) || Matter.Bounds.contains(render.bounds, pointBWorld)
+      if Bounds.contains(render.bounds, pointAWorld) or Bounds.contains(render.bounds, pointBWorld)
         constraints.push constraint
 
     # transform the view
@@ -154,12 +165,15 @@ Matter.RenderPixi.world = (engine) ->
 
 
   for body in bodies
-    Matter.RenderPixi.body engine, body
+    RenderPixi.body engine, body
 
   for constraint in constraints
-    Matter.RenderPixi.constraint engine, constraint
+    RenderPixi.constraint engine, constraint
   # render text
   for text in render.textContainer.children
     render.textContainer.addChildAt text, 0
 
   context.render container
+
+# export
+module.exports = RenderPixi

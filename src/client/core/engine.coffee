@@ -1,4 +1,11 @@
-Engine = Matter.Engine.create document.body,
+# core/engine.coffee
+# Create Matter.Engine object
+
+# aliases
+Matter.RenderPixi = require '../matter/render.coffee'
+
+# export
+module.exports = Matter.Engine.create document.body,
   world:
     gravity:
       x: 0

@@ -1,8 +1,10 @@
-Voice =
+# core/voice.coffee
+# voice module
+voice =
   start: ->
-    Voice._setPrefixes()
+    voice._setPrefixes()
     
-    if Voice._supportGetUserMedia()
+    if voice._supportGetUserMedia()
       navigator.getUserMedia
         'audio':
           'mandatory':
@@ -10,8 +12,8 @@ Voice =
             'googNoiseSuppression': true
             'googHighpassFilter': true
             'googAutoGainControl': true
-      , Voice.analyze
-      , Voice.error
+      , voice.analyze
+      , voice.error
     else
       console.log 'Can\'t find navigator.getUserMedia()!'
 
@@ -23,24 +25,26 @@ Voice =
 
     #mediaStreamSource.connect audioContext.destination
 
-    Voice.analyser = audioContext.createAnalyser()
-    Voice.analyser.fftSize = 2048
-    mediaStreamSource.connect Voice.analyser
+    voice.analyser = audioContext.createAnalyser()
+    voice.analyser.fftSize = 2048
+    mediaStreamSource.connect voice.analyser
 
   update: ->
-    array = new Uint8Array Voice.analyser.frequencyBinCount
-    Voice.analyser.getByteFrequencyData array
+    array = new Uint8Array voice.analyser.frequencyBinCount
+    voice.analyser.getByteFrequencyData array
 
-    Voice.average = 0
-    Voice.average += parseFloat i for i in array
-    Voice.average = Voice.average / array.length
+    voice.average = 0
+    voice.average += parseFloat i for i in array
+    voice.average = voice.average / array.length
+
+    console.log voice.average
 
     # Debug
-    Engine.render.gl.clear()
-    Engine.render.gl.lineStyle 1, 0x000000, 1
+    #core.engine.render.gl.clear()
+    #core.engine.render.gl.lineStyle 1, 0x000000, 1
 
-    for i in [0..Voice.average]
-      Engine.render.gl.drawCircle player.body.position.x, player.body.position.y, i * 10 # camera!
+    #for i in [0..voice.average]
+    #  core.engine.render.gl.drawCircle player.body.position.x, player.body.position.y, i * 10 # camera!
 
   error: (e) ->
     console.log e
@@ -55,3 +59,6 @@ Voice =
 
   analyser: null
   average: 0
+
+# export
+module.exports = voice
